@@ -31,7 +31,7 @@ function closeModal(){const v=modalMedia.querySelector('video');if(v)v.pause();m
 document.getElementById('contactForm').addEventListener('submit',e=>{
   e.preventDefault();
   const f=new FormData(e.target);
-  const email='YOUR_EMAIL@example.com';
+  const email='lalitpatil1104@gmail.com';
   const subject=encodeURIComponent(`Portfolio inquiry — ${f.get('type')}`);
   const body=encodeURIComponent(`Name: ${f.get('name')}\nEmail: ${f.get('email')}\nProject type: ${f.get('type')}\n\nMessage:\n${f.get('message')}`);
   window.location.href=`mailto:${email}?subject=${subject}&body=${body}`;
