@@ -30,10 +30,14 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 function closeModal(){const v=modalMedia.querySelector('video');if(v)v.pause();modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
 document.getElementById('contactForm').addEventListener('submit',e=>{
   e.preventDefault();
-  const f=new FormData(e.target);
-  const email='lalitpatil1104@gmail.com';
-  const subject=encodeURIComponent(`Portfolio inquiry — ${f.get('type')}`);
-  const body=encodeURIComponent(`Name: ${f.get('name')}\nEmail: ${f.get('email')}\nProject type: ${f.get('type')}\n\nMessage:\n${f.get('message')}`);
-  window.location.href=`mailto:${email}?subject=${subject}&body=${body}`;
-  document.getElementById('formStatus').textContent='Opening your email app…';
+  const status=document.getElementById('formStatus');
+  status.textContent='Sending…';
+  fetch('https://formspree.io/f/xbglbkpo', {
+    method:'POST',
+    body:new FormData(e.target),
+    headers:{Accept:'application/json'}
+  }).then(r=>{
+    if(r.ok){ e.target.reset(); status.textContent='✓ Message sent! I\'ll get back to you soon.'; }
+    else { status.textContent='Something went wrong. Email me directly at lalitpatil1104@gmail.com'; }
+  }).catch(()=>{ status.textContent='Something went wrong. Email me directly at lalitpatil1104@gmail.com'; });
 });
