@@ -32,9 +32,11 @@ document.getElementById('contactForm').addEventListener('submit',e=>{
   e.preventDefault();
   const status=document.getElementById('formStatus');
   status.textContent='Sending…';
-  fetch('https://formspree.io/f/xbglbkpo', {
+  const data=new FormData(e.target);
+  data.append('access_key','4ea87a05-d9e4-4131-a358-a4e276b8d384');
+  fetch('https://api.web3forms.com/submit',{
     method:'POST',
-    body:new FormData(e.target),
+    body:data,
     headers:{Accept:'application/json'}
   }).then(r=>{
     if(r.ok){ e.target.reset(); status.textContent='✓ Message sent! I\'ll get back to you soon.'; }
